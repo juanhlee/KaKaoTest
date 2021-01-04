@@ -1,0 +1,21 @@
+# Server Setting
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Spring config
+spring:
+  datasource:
+    url: jdbc:h2:mem:payments
+    driver-class-name: org.h2.Driver
+    platform: h2
+    username: sa
+    password:
+    hikari:      connection-test-query: SELECT 1
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
+    show_sql: true
+    generate-ddl: true
+    hibernate:      ddl-auto: create
