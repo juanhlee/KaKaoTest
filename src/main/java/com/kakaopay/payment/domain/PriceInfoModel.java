@@ -19,6 +19,6 @@ public class PriceInfoModel {
 	private String installment = "00";
 	
 	public void setVatForNull() {
-		this.vat = new Integer(Math.round(this.price/11));
+		this.vat = (Integer)Math.round(price/11);
 	}
 }
