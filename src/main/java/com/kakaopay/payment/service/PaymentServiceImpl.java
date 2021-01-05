@@ -121,9 +121,7 @@ public class PaymentServiceImpl implements PaymentService {
 			if ( totalPrice - req.getPrice() == 0 ) {
 				// Vat 가 Null 일때,
 				if ( req.getVat() == null ) {
-					if ( totalVat ==req.getVat() ) {
-						req.setVat(totalVat);
-					} 
+					req.setVat(totalVat);
 				} else {
 					// 취소 금액이 남은 Vat 금액보다 작을 때,
 					if ( totalVat > req.getVat() ) {
