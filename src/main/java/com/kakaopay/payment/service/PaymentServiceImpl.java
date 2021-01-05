@@ -58,7 +58,7 @@ public class PaymentServiceImpl implements PaymentService {
 		try {
 			Payment payment = new Payment(); 
 			
-			req.setVatForNull();
+			if ( req.getVat() == null )	req.setVatForNull();
 			Payments payments = modelMapper.map(req, Payments.class);
 			
 			//Payload를 제외한 데이터베이스에는 Ecrypted 카드 정보를 저장
