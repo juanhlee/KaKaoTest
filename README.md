@@ -148,5 +148,6 @@
 ## To-Do List
 - 에러 메세징 조금 더 깔끔하고 구체적인 정보 처리 ( 몇몇 데이터들은 커스터마이징하지않은 Exception을 그래로 송출
 - Select for Update Locking 코드 방어 테스트
+- Swagger를 이용하여 Api document 만들고 Hateoas를 만족시켜 Restful하게 변경
 - 단위 테스트를 통하여 조금더 안정적인 코드 구현
 - 주석 처리
