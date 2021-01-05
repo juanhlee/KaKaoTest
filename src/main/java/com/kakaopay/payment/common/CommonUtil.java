@@ -33,7 +33,7 @@ public class CommonUtil {
 		+DataType.NUMBER_L.format(model.getCvc(), 3)
 		+DataType.NUMBER.format(model.getPrice(), 10)
 		+DataType.NUMBER_0.format(model.getVat(), 10)
-		+DataType.CHARACTER.format(model.getAid(), 20)
+		+DataType.CHARACTER.format(nullCatch(model.getAid()), 20)
 		+DataType.CHARACTER.format(model.getEncryptedCardNum(), 300)
 		+DataType.CHARACTER.format(nullCatch(model.getTemp()), 47);
 		
