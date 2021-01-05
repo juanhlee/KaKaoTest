@@ -57,6 +57,8 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		try {
 			Payment payment = new Payment(); 
+			
+			req.setVatForNull();
 			Payments payments = modelMapper.map(req, Payments.class);
 			
 			//Payload를 제외한 데이터베이스에는 Ecrypted 카드 정보를 저장
@@ -115,14 +117,29 @@ public class PaymentServiceImpl implements PaymentService {
 			Integer totalVat = paymentsRepository.selectTotalVat(req.getPid());
 
 
-			// 나머지 금액 처리 
-			if (totalPrice - req.getPrice() == 0 && req.getVat() == null) {
-				req.setVat(totalVat);
+			// 취소 금액이 남은 결제 금액과 동일할 때, 
+			if ( totalPrice - req.getPrice() == 0 ) {
+				// Vat 가 Null 일때,
+				if ( req.getVat() == null ) {
+					if ( totalVat ==req.getVat() ) {
+						req.setVat(totalVat);
+					} 
+				} else {
+					// 취소 금액이 남은 Vat 금액보다 작을 때,
+					if ( totalVat > req.getVat() ) {
+						throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "부가세금액이 남아 취소할 수 없습니다.");
+					} else if ( totalVat < req.getVat()){
+						throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "남은 부가세금액보다 취소 부가세가 더 커 취소할 수 없습니다.");
+					}
+				}
+			} else if ( totalPrice > req.getPrice() && req.getVat() == null){
+				req.setVatForNull();
 			}
+
 			Payments payments = modelMapper.map(req, Payments.class);
-			if  (totalVat < req.getVat() ) throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "부가세금액을 취소할 수 없습니다.");
+			if  (totalVat < req.getVat() ) throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "부가세금액보다 취소 부가세가 더 커 취소할 수 없습니다.");
 			else if (totalPrice <= 0 && totalVat <= 0 ) throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "결제가 이미 취소되었습니다.");
-			else if (totalPrice < req.getPrice() ) throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "결제금액을 취소할 수 없습니다.");
+			else if (totalPrice < req.getPrice() ) throw new ApiException(CommonEnum.ErrorCode.EXCEPTION_EXPIRATION, "남은 결제금액보다 취소 결제금액이 더 커 취소할 수 없습니다.");
 			else if ( totalPrice > 0 && totalVat > 0 &&  totalPrice >= req.getPrice() && totalVat >= req.getVat() ) {
 				payment.setUpdatedAt(null);
 

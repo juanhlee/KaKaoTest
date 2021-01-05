@@ -18,13 +18,7 @@ public class PriceInfoModel {
 	@NotNull @Pattern(regexp="(0[0-9]|1[0-2])", message="할부는 00-12 까지")
 	private String installment = "00";
 	
-	// Setting actual price Vat when getting Vat
-	public Integer getVat() {
-		if ( this.vat == null && this.price != null) {
-			this.vat = (Integer)Math.round(price/11);
-			return null;
-		}
-		else return vat;
+	public void setVatForNull() {
+		this.vat = (Integer)Math.round(price/11);
 	}
-
 }
