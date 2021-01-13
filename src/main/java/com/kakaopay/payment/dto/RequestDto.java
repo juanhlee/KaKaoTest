@@ -16,6 +16,12 @@ public class RequestDto {
 		@Valid
 		private CardInfoModel card;
 		
+		@Builder
+		public RequestPayment(CardInfoModel card, Integer price, Integer vat, String installment ) {
+			super(price, vat, installment);
+			this.card = card;
+		}
+		
 	}
 	
 	@Getter @NoArgsConstructor

@@ -8,7 +8,6 @@ import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class CardInfoModel {
 	@NotNull @Size(min=10,max=16 , message = "카드 번호 확인")
 	private String cardnum;
@@ -16,5 +15,12 @@ public class CardInfoModel {
 	private String expires;
 	@NotNull @Size(min=2,max=3, message = "CVC 번호 확인")
     private String cvc;
+	
+	@Builder
+	public CardInfoModel(String cardnum, String expires, String cvc ) {
+		this.cardnum = cardnum;
+		this.expires = expires;
+		this.cvc = cvc;
+	}
 	
 }

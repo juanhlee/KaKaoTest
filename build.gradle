@@ -31,7 +31,7 @@ jar {
 
 dependencies {
 	// Spring boot
-	testImplementation group : 'org.springframework.boot', name : 'spring-boot-starter-test'
+
 	developmentOnly group : 'org.springframework.boot', name : 'spring-boot-devtools'
 	implementation  group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
 	implementation  group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest'
@@ -60,6 +60,18 @@ dependencies {
 	
 	// Logging
 	//compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+	
+	// JUnit
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.2.0'
+	
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.5.2')
+    testImplementation('org.junit.jupiter:junit-jupiter-params:5.5.2')
+	
+ 	// Simple JSON
+ 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
 }
 
 test {

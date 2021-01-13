@@ -72,7 +72,8 @@ public class CommonUtil {
 		try {
 			result = aes256util.decrypt(str);
 			String[] strArray = result.split("\\|");
-			return new CardInfoModel(strArray[0], strArray[1], strArray[2]);
+			return CardInfoModel.builder().cardnum(strArray[0]).expires(strArray[1]).cvc(strArray[2]).build();
+			//return new CardInfoModel(strArray[0], strArray[1], strArray[2]);
 			
 		} catch (Exception e)  {
 			throw new ApiException( CommonEnum.ErrorCode.EXCEPTION_EXPIRATION , e.getMessage() );

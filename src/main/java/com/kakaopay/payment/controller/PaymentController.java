@@ -23,6 +23,10 @@ public class PaymentController {
 	@Autowired
 	PaymentService paymentService;
 	
+	public PaymentController(PaymentService paymentService) {
+		this.paymentService = paymentService;
+	}
+
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="", dataType = "", paramType="", value=""),
 		@ApiImplicitParam(name="", dataType = "", paramType="", value=""),

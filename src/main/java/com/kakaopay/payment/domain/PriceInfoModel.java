@@ -10,6 +10,7 @@ import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PriceInfoModel {
 	@NotNull @Min(value=100, message="100원 이상") @Max(value=1000000000, message="10억 이하")
 	private Integer price;

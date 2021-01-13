@@ -132,6 +132,8 @@ public class PaymentServiceImpl implements PaymentService {
 				}
 			} else if ( totalPrice > req.getPrice() && req.getVat() == null){
 				req.setVatForNull();
+			} else {
+				req.setVat(totalVat);
 			}
 
 			Payments payments = modelMapper.map(req, Payments.class);
